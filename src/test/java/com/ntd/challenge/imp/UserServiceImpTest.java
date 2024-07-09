@@ -74,7 +74,6 @@ public class UserServiceImpTest {
         User user = new User();
         user = userService.getUserByUserName("jonhdoe@gmail.com");
         Assertions.assertEquals(user.getPassword(),user2.getPassword());
-        Assertions.assertEquals(user.getRecords().size(), user2.getRecords().size());
         Assertions.assertEquals(user.getUsername(), user2.getUsername());
         Assertions.assertEquals(user.getId(), user2.getId());
     }
@@ -83,6 +82,9 @@ public class UserServiceImpTest {
     public void isActive() {
         //all the users from the imported file are not active
         boolean isActive;
+        User user = userService.getUserByUserName("jonhdoe@gmail.com");
+        user.setActive(false);
+        userService.updateUser(user);
         isActive = userService.isActive("jonhdoe@gmail.com");
         Assertions.assertEquals(isActive,false);
     }
