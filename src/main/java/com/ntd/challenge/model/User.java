@@ -17,7 +17,7 @@ public class User implements Serializable {
     //identity will be id only for this particular column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Record> records;
     private String username;
 
