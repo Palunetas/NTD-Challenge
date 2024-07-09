@@ -36,9 +36,9 @@ public class OperationController {
                 return new ResponseEntity<Object>("Not enough founds for operation " + operation.getOperator(),
                         HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            return new ResponseEntity<Object>(obj, HttpStatus.ACCEPTED);
+            return new ResponseEntity<Object>(obj, HttpStatus.OK);
         }else{
-            return new ResponseEntity<>("No active user "+operation.getUserName(),HttpStatus.ACCEPTED);
+            return new ResponseEntity<>("No active user "+operation.getUserName(),HttpStatus.FORBIDDEN);
         }
     }
 }
