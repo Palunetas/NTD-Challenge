@@ -7,19 +7,13 @@ import com.ntd.challenge.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -29,6 +23,9 @@ public class UserServiceImpTest {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @BeforeAll
@@ -142,6 +139,38 @@ public class UserServiceImpTest {
         Assertions.assertEquals(userDb.getRecords().get(0).getBalance(),300);
         Assertions.assertEquals(userDb.getRecords().get(0).getOperation().getCost(),100);
 
+    }
+
+    @Test
+    public void disableUser() {
+        User user = userService.getUserByUserName("jonhdoe@gmail.com");
+        user.setActive(true);
+        userService.updateUser(user);
+        userService.disableUser(user);
+        user = userService.getUserByUserName("jonhdoe@gmail.com");
+        Assertions.assertFalse(user.isActive());
+    }
+
+
+    @Test
+    public void enableUser() {
+        User user = userService.getUserByUserName("jonhdoe@gmail.com");
+        userService.enableUser(user);
+        user = userService.getUserByUserName("jonhdoe@gmail.com");
+        Assertions.assertTrue(user.isActive());
+    }
+
+    @Test
+    public void save(){
+        User user2 = new User();
+        user2.setUsername("newuser@gmail.com");
+        user2.setPassword(bCryptPasswordEncoder.encode("jkkk115") );
+        user2.setActive(false);
+        userService.save(user2);
+
+        User userdb= userService.getUserByUserName("newuser@gmail.com");
+        Assertions.assertEquals(userdb.getUsername(),"newuser@gmail.com");
+        Assertions.assertEquals(userdb.getPassword(),user2.getPassword());
     }
 
 }

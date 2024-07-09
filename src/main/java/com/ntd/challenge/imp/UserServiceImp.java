@@ -27,16 +27,17 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional
     public void disableUser(User user) {
         user.setActive(false);
-        entityManager.persist(user);
+        entityManager.merge(user);
     }
 
     @Override
     @Transactional
     public void enableUser(User user) {
         user.setActive(true);
-        entityManager.persist(user);
+        entityManager.merge(user);
     }
 
     @Override

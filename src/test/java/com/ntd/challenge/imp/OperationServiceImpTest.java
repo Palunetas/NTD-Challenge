@@ -3,39 +3,34 @@ package com.ntd.challenge.imp;
 import com.ntd.challenge.model.Operation;
 import com.ntd.challenge.model.Record;
 import com.ntd.challenge.model.User;
+import com.ntd.challenge.service.OperationService;
 import com.ntd.challenge.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class OperationServiceImpTest {
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Mock
     UserService userService;
 
     @Autowired
-    UserServiceImp userServiceImp;
+    OperationService operationService;
 
-    static OperationServiceImp operationServiceImp;
+    @Autowired
+    OperationServiceImp operationServiceImp;
 
     static User user;
 
     @BeforeAll
     public static void initUser(){
 
-        operationServiceImp= new OperationServiceImp();
         user = new User();
         user.setActive(true);
         user.setUsername("sat@gmail.com");
@@ -47,29 +42,21 @@ public class OperationServiceImpTest {
 
     }
 
-    /*
+
     @Test
-    public void operation(){
-        /*
-        if(isPayable(user,operator)) {
-            if (operator.equals("square_root")) {
-                return Math.sqrt(Double.parseDouble(firstValue));
-            } else if (operator.equals("random")) {
-                RestTemplate restTemplate = new RestTemplate();
-                ResponseEntity<String> call = restTemplate.getForEntity(url, String.class);
-                return call.getBody();
-            } else {
-                return returnParsedValues(firstValue, secondValue, operator);
-            }
-        }else {
-            return false;
-        }
+    public void operation() throws Exception {
+        User user;
+        user = userService.getUserByUserName("jonhdoe@gmail.com");
+        user.setActive(true);
+        userService.updateUser(user);
 
+        Object object =  operationService.operation("50","20",
+                "random",user);
+        String transfor = String.valueOf(object);
+        Assertions.assertEquals(operationService.operation("50","20",
+                "square_root",user),7.0710678118654755);
+        Assertions.assertEquals(transfor.length(),90);
     }
-
-
-     */
-
 
 
     @Test
@@ -77,8 +64,7 @@ public class OperationServiceImpTest {
         User user = new User();
         user = new User();
         user.setActive(true);
-        user.setUsername("jonhdoe@gmail.com");
-        user.setPassword("$2a$10$5e5AK.dZG9WJ4xyZjFIZguEYHZQNZ/ikUs9liY1XtI5BlTYI0UCtu");
+        user = userService.getUserByUserName("jonhdoe@gmail.com");
         Record record= new Record();
         record.setBalance(500);
 
@@ -89,61 +75,8 @@ public class OperationServiceImpTest {
         record.setOperation(operation);
         user.addRecords(record);
 
-
-        when(userService.getUserByUserName(Mockito.anyString())).thenReturn(user);
-
-        Assertions.assertTrue(operationServiceImp.isPayable(user, "+"));
+        Assertions.assertEquals(operationServiceImp.isPayable(user,"+"),true);
 
     }
-
-/*
-    public boolean isPayable(User user, String operator) {
-        User userDb = userService.getUserByUserName(user.getUsername());
-        log.info("Records "+userDb.toString());
-        double balance=0;
-        try {
-            balance = userDb.getRecords().get(userDb.getRecords().size() - 1).getBalance();
-        }catch (Exception e){
-            balance=500;
-        }
-        double pay = 0;
-        double cost = 0;
-        if(operator.equals("/")){
-            pay = 30;
-            cost = 30;
-        }
-        if(operator.equals("+")){
-            pay = 20;
-            cost = 20;
-        }else if(operator.equals("-")){
-            pay = 40;
-            cost = 40;
-        }else if(operator.equals("*")){
-            pay = 60;
-            cost = 60;
-        }else if(operator.equals("square_root")){
-            pay = 100;
-            cost = 100;
-        }else if(operator.equals("random")){
-            pay = 200;
-            cost = 200;
-        }
-        if(balance - pay < 0){
-            return false;
-        }else{
-            Operation operation = new Operation();
-            operation.setType(operator);
-            operation.setCost(cost);
-
-            Record record = new Record();
-            record.setOperation(operation);
-            record.setBalance(balance - pay);
-            user.addRecords(record);
-            userService.updateUser(user);
-            return true;
-        }
-    }
-*/
-
 
 }
