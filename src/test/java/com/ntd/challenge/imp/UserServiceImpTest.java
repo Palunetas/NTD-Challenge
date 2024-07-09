@@ -121,7 +121,6 @@ public class UserServiceImpTest {
         records.add(record2);
         records.add(record3);
 
-
         User userDb= new User();
         userDb = userService.getUserByUserName("jonhdoe@gmail.com");
         userDb.setRecords(records);
