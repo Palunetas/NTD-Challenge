@@ -3,10 +3,8 @@ package com.ntd.challenge.model;
 public class OperationDetails {
 
     private String userName;
-    private String firstValue;
-    private String secondValue;
+    private String operation;
     private String operator;
-
 
     public String getUserName() {
         return userName;
@@ -16,27 +14,19 @@ public class OperationDetails {
         this.userName = userName;
     }
 
-    public String getFirstValue() {
-        return firstValue;
-    }
-
-    public void setFirstValue(String firstValue) {
-        this.firstValue = firstValue;
-    }
-
-    public String getSecondValue() {
-        return secondValue;
-    }
-
-    public void setSecondValue(String secondValue) {
-        this.secondValue = secondValue;
-    }
-
     public String getOperator() {
         return operator;
     }
 
     public void setOperator(String operator) {
         this.operator = operator;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
     }
 }

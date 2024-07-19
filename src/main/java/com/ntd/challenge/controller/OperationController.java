@@ -24,13 +24,12 @@ public class OperationController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("operation")
+    @PostMapping("/operation")
     public ResponseEntity<Object> operation(@RequestBody OperationDetails operation) throws Exception {
         log.info("username "+operation.getUserName());
         if(userService.isActive(operation.getUserName())) {
             final User user = userService.getUserByUserName(operation.getUserName());
-            Object obj = operationService.operation(operation.getFirstValue(),
-                    operation.getSecondValue(),
+            Object obj = operationService.operation(operation.getOperation(),
                     operation.getOperator(), user);
             if (obj.equals(false)) {
                 return new ResponseEntity<Object>("Not enough founds for operation " + operation.getOperator(),

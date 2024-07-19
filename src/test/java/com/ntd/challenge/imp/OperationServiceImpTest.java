@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -50,10 +54,10 @@ public class OperationServiceImpTest {
         user.setActive(true);
         userService.updateUser(user);
 
-        Object object =  operationService.operation("50","20",
+        Object object =  operationService.operation("50",
                 "random",user);
         String transfor = String.valueOf(object);
-        Assertions.assertEquals(operationService.operation("50","20",
+        Assertions.assertEquals(operationService.operation("50",
                 "square_root",user),7.0710678118654755);
         Assertions.assertEquals(transfor.length(),90);
     }
@@ -77,6 +81,13 @@ public class OperationServiceImpTest {
 
         Assertions.assertEquals(operationServiceImp.isPayable(user,"+"),true);
 
+    }
+
+    @Test
+    public void returnParsedValues() throws ScriptException {
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("graal.js");
+        String value = "4+60-9";
+        Assertions.assertEquals(engine.eval(value),55);
     }
 
 }
