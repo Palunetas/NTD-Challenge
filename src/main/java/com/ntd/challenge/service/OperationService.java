@@ -8,5 +8,5 @@ import javax.script.ScriptException;
 @Service
 public interface OperationService {
 
-    public Object operation(String firstValue,String secondValue,String operator,User user) throws Exception;
+    public Object operation(String operation,String operator,User user) throws Exception;
 }
