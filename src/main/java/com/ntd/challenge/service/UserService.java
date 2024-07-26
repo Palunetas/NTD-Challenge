@@ -2,12 +2,10 @@ package com.ntd.challenge.service;
 
 import com.ntd.challenge.model.Record;
 import com.ntd.challenge.model.User;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface UserService extends UserDetailsService {

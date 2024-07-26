@@ -3,9 +3,9 @@ package com.ntd.challenge.imp;
 import com.ntd.challenge.model.Operation;
 import com.ntd.challenge.model.Record;
 import com.ntd.challenge.model.User;
+
 import com.ntd.challenge.service.OperationService;
 import com.ntd.challenge.service.UserService;
-import com.ntd.challenge.service.imp.OperationServiceImp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,6 @@ public class OperationServiceImpTest {
 
     @Autowired
     OperationServiceImp operationServiceImp;
-
     static User user;
 
     @BeforeAll
