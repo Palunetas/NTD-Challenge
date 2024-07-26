@@ -17,6 +17,8 @@ public interface UserService extends UserDetailsService {
     void enableUser(User user);
     User getUserByUserName(String name);
 
+    User findByUserName(String name);
+
     List<User> findAll();
 
     void updateUser(User user);
