@@ -1,4 +1,4 @@
-package com.ntd.challenge.serviceImp;
+package com.ntd.challenge.imp;
 
 import com.ntd.challenge.model.Operation;
 import com.ntd.challenge.model.Record;
@@ -27,7 +27,7 @@ public class OperationServiceImp implements OperationService {
     private String url;
 
     @Override
-    public Object operation(String operation, String operator, User user) throws Exception {
+    public Object operation(String operation, String operator,User user) throws Exception {
         if(isPayable(user,operator)) {
             if (operator.equals("square_root")) {
                 return Math.sqrt(Double.parseDouble(operation));

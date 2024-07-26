@@ -1,4 +1,4 @@
-package com.ntd.challenge.serviceImp;
+package com.ntd.challenge.imp;
 
 import com.ntd.challenge.model.Record;
 import com.ntd.challenge.model.User;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -126,3 +127,4 @@ public class UserServiceImp implements UserService {
     }
 
 }
+
