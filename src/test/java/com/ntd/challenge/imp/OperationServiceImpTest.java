@@ -54,8 +54,8 @@ public class OperationServiceImpTest {
         Object object =  operationService.operation("50",
                 "random",user);
         String transfor = String.valueOf(object);
-        Assertions.assertEquals(operationService.operation("50",
-                "square_root",user),7.0710678118654755);
+        Assertions.assertEquals(operationService.operation("50+2",
+                "+",user),52);
         Assertions.assertEquals(transfor.length(),90);
     }
 
