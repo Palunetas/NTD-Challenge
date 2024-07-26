@@ -27,16 +27,16 @@ public class OperationServiceImp implements OperationService {
     private String url;
 
     @Override
-    public Object operation(String firstValue, String secondValue, String operator,User user) throws Exception {
+    public Object operation(String operation, String operator, User user) throws Exception {
         if(isPayable(user,operator)) {
             if (operator.equals("square_root")) {
-                return Math.sqrt(Double.parseDouble(firstValue));
+                return Math.sqrt(Double.parseDouble(operation));
             } else if (operator.equals("random")) {
                 RestTemplate restTemplate = new RestTemplate();
                 ResponseEntity<String> call = restTemplate.getForEntity(url, String.class);
                 return call.getBody();
             } else {
-                return returnParsedValues(firstValue, secondValue, operator);
+                return returnParsedValues(operation);
             }
         }else {
             return false;
@@ -90,10 +90,10 @@ public class OperationServiceImp implements OperationService {
         }
     }
 
-    private Object returnParsedValues(String firstValue,String secondValue,String operator) throws ScriptException {
+    private Object returnParsedValues(String operation) throws ScriptException {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("graal.js");
-        System.out.println("Operations "+firstValue+operator+secondValue);
-        return  engine.eval(firstValue +operator+secondValue);
+        log.info("Operations "+operation);
+        return  engine.eval(operation);
     }
 
 

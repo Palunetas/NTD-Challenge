@@ -1,7 +1,9 @@
 package com.ntd.challenge.model;
 
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +13,24 @@ public class User implements Serializable {
 
     public User(){
         records = new ArrayList<>();
+        roles = new ArrayList<>();
     }
 
     @Id
     //identity will be id only for this particular column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Record> records;
+
+    //@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
+    @ManyToMany(fetch = FetchType.EAGER) //this is the default
+    @JoinTable(
+            joinColumns = @JoinColumn,
+            inverseJoinColumns = @JoinColumn
+    )
+    private List<Role> roles;
     private String username;
-
-
     private String password;
     private boolean active;
 
@@ -67,6 +76,18 @@ public class User implements Serializable {
 
     public void addRecords(Record record) {
         this.records.add(record);
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role){
+        this.roles.add(role);
     }
 
     @Override
