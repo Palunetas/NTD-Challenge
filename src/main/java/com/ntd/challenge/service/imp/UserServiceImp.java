@@ -1,4 +1,4 @@
-package com.ntd.challenge.imp;
+package com.ntd.challenge.service.imp;
 
 import com.ntd.challenge.model.Record;
 import com.ntd.challenge.model.User;
