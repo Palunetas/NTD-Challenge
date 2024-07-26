@@ -17,8 +17,6 @@ import java.util.logging.Logger;
 @RestController
 public class UserController {
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
     private final Logger log =  Logger.getLogger(String.valueOf(getClass()));
     @Autowired
     private UserService userService;
@@ -30,7 +28,7 @@ public class UserController {
         User user1 = new User();
         user1.setActive(true);
         user1.setUsername("sat@gmail.com");
-        user1.setPassword(bCryptPasswordEncoder.encode("sat565"));
+        //user1.setPassword(bCryptPasswordEncoder.encode("sat565"));
         Record record= new Record();
         record.setBalance(500);
         //record.setOperation(operation);
@@ -38,7 +36,7 @@ public class UserController {
         userService.save(user1);
         User user2 = new User();
         user2.setUsername("ntduser@ntdsoftware.com");
-        user2.setPassword(bCryptPasswordEncoder.encode("ntdsoftware"));
+        //user2.setPassword(bCryptPasswordEncoder.encode("ntdsoftware"));
         Record record2 = new Record();
         record2.setBalance(500);
         user2.addRecords(record2);
@@ -46,7 +44,7 @@ public class UserController {
 
         User user3 = new User();
         user3.setUsername("jhondoe@industries.com");
-        user3.setPassword(bCryptPasswordEncoder.encode("doe254"));
+        //user3.setPassword(bCryptPasswordEncoder.encode("doe254"));
         Record record3 = new Record();
         record3.setBalance(500);
         user3.addRecords(record3);
@@ -54,6 +52,7 @@ public class UserController {
 
     }
 
+    /*
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     public ResponseEntity<Object> access(@RequestBody Map<String,String> login){
@@ -77,6 +76,8 @@ public class UserController {
 
         return responseEntity;
     }
+
+     */
 
     //checking the adding operation in use
     @GetMapping("/all")

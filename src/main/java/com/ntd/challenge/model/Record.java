@@ -1,14 +1,13 @@
 package com.ntd.challenge.model;
 
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 public class Record implements Serializable {
 
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Id;
 
