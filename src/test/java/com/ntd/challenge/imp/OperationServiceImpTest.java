@@ -52,9 +52,6 @@ public class OperationServiceImpTest {
     public void operation() throws Exception {
         User user;
         user = userService.getUserByUserName("jonhdoe@gmail.com");
-        user.setActive(true);
-        userService.updateUser(user);
-
         Object object =  operationService.operation("50",
                 "random",user);
         String transfor = String.valueOf(object);
